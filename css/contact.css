@@ -146,6 +146,19 @@
       padding: 0.5rem 1rem;
       border-radius: 20px;
     }
+    .background-video {
+      display: block !important;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+    .background-video video {
+      width: 120vw;
+      height: 120vh;
+      min-width: 120vw;
+      min-height: 120vh;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+    }
   }
 .contact-card:hover::before {
   left: 100%;
@@ -408,7 +421,6 @@
   padding-top: 1.8rem;
 }
 
-/* CSS-only Validation States */
 .form-input:invalid:not(:focus):not(:placeholder-shown),
 .form-textarea:invalid:not(:focus):not(:placeholder-shown) {
   border-color: rgba(255, 99, 99, 0.6);
@@ -475,8 +487,6 @@
   transform: scale(0.95);
   transition: transform 0.1s ease;
 }
-
-/* Clean submit button without JavaScript states */
 
 .submit-btn::before {
   content: '';
@@ -807,6 +817,13 @@
     font-size: 0.75rem;
     padding: 0.3rem 0.5rem;
   }
+}
+
+.footer-navigation .footer-nav-button.active {
+  background: linear-gradient(to right, #f928fd, #3d81ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .mobile-nav .nav-button.active {

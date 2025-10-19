@@ -230,6 +230,20 @@
     font-size: 1rem;
     word-break: break-word;
   }
+  
+  .background-video {
+    display: block !important;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+  .background-video video {
+    width: 120vw;
+    height: 120vh;
+    min-width: 120vw;
+    min-height: 120vh;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+  }
 }
 
 @media (min-width: 768px) {
@@ -256,7 +270,8 @@
   }
 }
 
-.mobile-nav .nav-button.active {
+/* ensure footer active state */
+.footer-navigation .footer-nav-button.active {
   background: linear-gradient(to right, #f928fd, #3d81ff);
   -webkit-background-clip: text;
   background-clip: text;
