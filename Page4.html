@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The Celestial Archive - Archives</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css?family=Cormorant+SC:700|Corinthia:400" rel="stylesheet">
+  <link href="./css/styles.css" rel="stylesheet" />
+  <link href="./css/Archives.css" rel="stylesheet" />
+  <link href="./css/Page4.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="mobile-container">
+    <div class="background-video">
+      <video autoplay muted loop playsinline>
+        <source src="assets/background-video.mp4" type="video/mp4">
+        <source src="assets/background-video.webm" type="video/webm">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    
+    <header class="mobile-header">
+      <div class="logo">
+        <img src="assets/logo-colored.png" alt="The Celestial Archive Logo" class="logo-img" />
+      </div>
+      <button class="menu-toggle" id="menuToggle">☰</button>
+      <nav class="mobile-nav" id="mobileNav">
+        <button class="nav-button" onclick="window.location.href='index.html'">Home</button>
+        <button class="nav-button" onclick="window.location.href='Page3.html'">Mission</button>
+        <button class="nav-button" onclick="window.location.href='Page2.html'">Contact</button>
+        <button class="nav-button active" onclick="window.location.href='Page4.html'">Archives</button>
+        <button class="nav-button" onclick="window.location.href='Page5.html'">About</button>
+      </nav>
+    </header>
+
+    <main class="archives-main">
+      <section class="archives-plate">
+        <h1 class="archives-title">Archives</h1>
+        <p class="archives-subtitle">Browse discoveries, missions, images and milestones from space exploration.</p>
+
+        <div class="archive-controls" aria-label="Archive controls">
+          <div class="control-row">
+            <input id="archiveSearch" type="search" placeholder="Search archives (title, summary, year)..." aria-label="Search archives">
+            <select id="archiveCategory" aria-label="Filter by category">
+              <option value="All">All Categories</option>
+              <option value="Missions">Missions</option>
+              <option value="Discoveries">Discoveries</option>
+              <option value="Images">Images</option>
+              <option value="Data">Data</option>
+            </select>
+            <select id="archiveSort" aria-label="Sort archives">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="title">Title (A-Z)</option>
+            </select>
+          </div>
+          <div class="control-meta">
+            <span id="archiveCount">0 results</span>
+          </div>
+        </div>
+
+        <div id="archiveGrid" class="archive-grid" aria-live="polite">
+        </div>
+ 
+        <div id="archiveEmpty" class="archive-empty" hidden>No results — try a different search or category.</div>
+ 
+        <article id="entryView" class="entry-view" hidden aria-live="polite">
+          <button id="entryBack" class="entry-back" aria-label="Back to archives">← Back</button>
+          <header class="entry-hero">
+            <img id="entryImage" class="entry-image" alt="" />
+            <div class="entry-headline">
+              <h1 id="entryTitle"></h1>
+              <p id="entryMeta" class="entry-meta"></p>
+            </div>
+          </header>
+          <section id="entryBody" class="entry-body"></section>
+        </article>
+       </section>
+     </main>
+
+    <footer class="mobile-footer">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="assets/logo-white.png" alt="The Celestial Archive Logo" class="footer-logo-img" />
+        </div>
+        
+        <nav class="footer-navigation">
+          <button class="footer-nav-button" onclick="window.location.href='index.html'">Home</button>
+          <button class="footer-nav-button" onclick="window.location.href='Page3.html'">Mission</button>
+          <button class="footer-nav-button" onclick="window.location.href='Page2.html'">Contact</button>
+          <button class="footer-nav-button" onclick="window.location.href='Page4.html'">Archives</button>
+          <button class="footer-nav-button" onclick="window.location.href='Page5.html'">About</button>
+        </nav>
+        
+        <div class="social-icons">
+          <button class="social-icon" aria-label="Twitter — opens social" title="Twitter">Twitter</button>
+          <button class="social-icon" aria-label="Instagram — opens social" title="Instagram">Instagram</button>
+          <button class="social-icon" aria-label="Facebook — opens social" title="Facebook">Facebook</button>
+          <button class="social-icon" aria-label="Discord — opens community" title="Discord">Discord</button>
+        </div>
+        
+        <div class="footer-bottom">
+          <div class="copyright">
+            <span>© 2025 Shanthuro Uko V. Cabrera</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      const nav = document.getElementById('mobileNav');
+      nav.classList.toggle('active');
+    });
+
+    (function() {
+      function extractTarget(btn){
+        const oc = btn.getAttribute('onclick');
+        if(!oc) return null;
+        const m = oc.match(/window\.location\.href\s*=\s*['"]([^'"]+)['"]/);
+        return m ? m[1] : null;
+      }
+      const path = location.pathname.split('/').pop() || 'index.html';
+
+      document.querySelectorAll('.mobile-nav .nav-button').forEach(btn=>{
+        const target = extractTarget(btn);
+        if(target && (path === target || path === target.replace('./',''))) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      document.querySelectorAll('.footer-navigation .footer-nav-button').forEach(btn=>{
+        const target = extractTarget(btn);
+        if(target && (path === target || path === target.replace('./',''))) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      document.querySelectorAll('.nav-button, .footer-nav-button').forEach(btn=>{
+        if(!btn.getAttribute('role')) btn.setAttribute('role','button');
+        btn.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' ') {
+            const t = extractTarget(btn);
+            if(t) window.location.href = t;
+          }
+        });
+      });
+    })();
+  </script>
+
+  <script>
+    (function(){
+      function debounce(fn, t){ let tm; return function(){ clearTimeout(tm); tm = setTimeout(()=> fn.apply(this, arguments), t); }; }
+      function updateArchivesSpacing(){
+        try {
+          const header = document.querySelector('.mobile-header');
+          const main = document.querySelector('.archives-main');
+          if(!header || !main) return;
+          const hdrHeight = Math.ceil(header.getBoundingClientRect().height || 0);
+          const gap = 16;
+          main.style.paddingTop = (hdrHeight + gap) + 'px';
+        } catch(e) {
+          console.error && console.error('spacing update error', e);
+        }
+      }
+      window.addEventListener('load', updateArchivesSpacing);
+      window.addEventListener('orientationchange', updateArchivesSpacing);
+      window.addEventListener('resize', debounce(updateArchivesSpacing, 120));
+      setTimeout(updateArchivesSpacing, 300);
+    })();
+  </script>
+  
+  <script src="./js/archives-data.js"></script>
+ 
+  <script>
+    (function(){
+      try {
+        const items = (window.ARCHIVE_ITEMS && Array.isArray(window.ARCHIVE_ITEMS)) ? window.ARCHIVE_ITEMS : [];
+        if(!items.length) console.warn('No archive items found (window.ARCHIVE_ITEMS). Add objects to ./js/archives-data.js to populate the grid.');
+
+        const entryView = document.getElementById('entryView');
+        const entryBack = document.getElementById('entryBack');
+        const entryImage = document.getElementById('entryImage');
+        const entryTitle = document.getElementById('entryTitle');
+        const entryMeta = document.getElementById('entryMeta');
+        const entryBody = document.getElementById('entryBody');
+
+        const searchEl = document.getElementById('archiveSearch');
+        const catEl = document.getElementById('archiveCategory');
+        const sortEl = document.getElementById('archiveSort');
+        const gridEl = document.getElementById('archiveGrid');
+        const countEl = document.getElementById('archiveCount');
+        const emptyEl = document.getElementById('archiveEmpty');
+
+        if(!gridEl || !countEl || !emptyEl) {
+          console.error('Archive: missing critical DOM elements');
+          return;
+        }
+
+        function formatDate(d){
+          if(!d) return '';
+          const dt = new Date(d);
+          return isNaN(dt) ? d : dt.toLocaleDateString();
+        }
+
+        function renderItemCard(item){
+          const card = document.createElement('article');
+          card.className = 'archive-card';
+          card.tabIndex = 0;
+          card.innerHTML = `
+            <div class="card-media">${ item.image ? `<img src="${item.image}" alt="${escapeHtml(item.title)}">` : `<div class="card-placeholder">${escapeHtml(item.title.charAt(0))}</div>` }</div>
+            <div class="card-body">
+              <h3 class="card-title">${escapeHtml(item.title)}</h3>
+              <p class="card-meta">${escapeHtml(item.category)} • ${formatDate(item.date)}</p>
+              <p class="card-summary">${escapeHtml(item.summary)}</p>
+            </div>
+          `;
+          const navigateToFull = () => {
+            const url = `${location.pathname}?id=${encodeURIComponent(item.id)}`;
+            window.location.href = url;
+          };
+          card.addEventListener('click', navigateToFull);
+          card.addEventListener('keydown', (e)=> {
+            if(e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              navigateToFull();
+            }
+          });
+          return card;
+        }
+
+        function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+        function applyFilters(){
+          if(!searchEl || !catEl || !sortEl) return;
+          const q = (searchEl.value||'').trim().toLowerCase();
+          const cat = catEl.value;
+          const sort = sortEl.value;
+
+          let results = items.filter(it=>{
+            const inCat = (cat === 'All') || (it.category === cat);
+            const text = (it.title + ' ' + it.summary + ' ' + (it.date||'')).toLowerCase();
+            const matches = !q || text.indexOf(q) !== -1;
+            return inCat && matches;
+          });
+
+          if(sort === 'newest') results.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
+          else if(sort === 'oldest') results.sort((a,b)=> (a.date||'').localeCompare(b.date||''));
+          else if(sort === 'title') results.sort((a,b)=> (a.title||'').localeCompare(b.title||''));
+
+          renderGrid(results);
+        }
+
+        function renderGrid(list){
+          if(!gridEl || !countEl || !emptyEl) return;
+          gridEl.innerHTML = '';
+          if(!list.length) {
+            emptyEl.hidden = false;
+            countEl.textContent = '0 results';
+            return;
+          }
+          emptyEl.hidden = true;
+          countEl.textContent = `${list.length} result${list.length===1?'':'s'}`;
+          const frag = document.createDocumentFragment();
+          list.forEach(it => frag.appendChild(renderItemCard(it)));
+          gridEl.appendChild(frag);
+        }
+
+        function renderFullEntry(item) {
+          if(!entryView || !entryImage || !entryTitle || !entryMeta || !entryBody) return;
+          entryImage.src = item.image || '';
+          entryImage.style.display = item.image ? 'block' : 'none';
+          entryImage.alt = item.image ? item.title : '';
+          entryTitle.textContent = item.title;
+          entryMeta.textContent = `${item.category} • ${formatDate(item.date)}`;
+          if(item.body) {
+            entryBody.innerHTML = item.body;
+          } else {
+            entryBody.innerHTML = `<p class="entry-summary">${escapeHtml(item.summary)}</p>
+              <p class="entry-extra">Add long-form content here: mission details, datasets, links, credits and high-resolution images.</p>`;
+          }
+          entryView.hidden = false;
+          const plate = document.querySelector('.archives-plate');
+          if(plate) plate.classList.add('entry-open');
+          if(gridEl) gridEl.style.display = 'none';
+          if(countEl) countEl.style.display = 'none';
+        }
+
+        function clearFullEntry() {
+          if(!entryView) return;
+          entryView.hidden = true;
+          const plate = document.querySelector('.archives-plate');
+          if(plate) plate.classList.remove('entry-open');
+          if(gridEl) gridEl.style.display = '';
+          if(countEl) countEl.style.display = '';
+        }
+
+        if(searchEl) searchEl.addEventListener('input', debounce(applyFilters, 200));
+        if(catEl) catEl.addEventListener('change', applyFilters);
+        if(sortEl) sortEl.addEventListener('change', applyFilters);
+
+        if(entryBack) {
+          entryBack.addEventListener('click', function(){
+            if(history.replaceState) history.replaceState(null, '', location.pathname);
+            clearFullEntry();
+          });
+        }
+
+        (function checkQuery() {
+          try {
+            const params = new URLSearchParams(location.search);
+            const id = params.get('id');
+            if(id) {
+              const found = items.find(it => String(it.id) === String(id));
+              if(found) {
+                renderFullEntry(found);
+              }
+            }
+          } catch(e) { console.error('checkQuery error', e); }
+        })();
+
+        applyFilters();
+
+        function debounce(fn, t){ let tm; return function(){ clearTimeout(tm); tm = setTimeout(()=> fn.apply(this, arguments), t); }; }
+
+      } catch (err) {
+        console.error('Archive script error:', err);
+      }
+    })();
+  </script>
+</body>
+</html>

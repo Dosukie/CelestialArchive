@@ -1,0 +1,61 @@
+.about-main {
+  padding: 6rem 1rem 2rem;
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-card {
+  max-width: 880px;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(10,6,40,0.68), rgba(20,8,89,0.36));
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: left;
+  backdrop-filter: blur(10px) saturate(1.05);
+  box-shadow: 0 16px 50px rgba(3,8,50,0.45);
+}
+
+.about-title {
+  font-family: 'Cormorant SC', serif;
+  font-size: 2.1rem;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+
+.about-tagline {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(249,40,253,0.06), rgba(61,129,255,0.04));
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 1rem;
+}
+
+.about-body {
+  font-family: 'Courier New', monospace;
+  color: rgba(255,255,255,0.92);
+  line-height: 1.8;
+  font-size: 1.02rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* small screens adjustments */
+@media (max-width: 768px) {
+  .about-card { padding: 1.2rem; border-radius: 12px; }
+  .about-title { font-size: 1.3rem; text-align: center; }
+  .about-body { font-size: 0.95rem; }
+  .background-video { opacity: 0.08; }
+}
+
+/* ensure active nav style matches site */
+.mobile-nav .nav-button.active,
+.mobile-nav .nav-button.active:hover {
+  background: linear-gradient(to right, #f928fd, #3d81ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
