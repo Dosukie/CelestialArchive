@@ -19,7 +19,6 @@
   --ease: cubic-bezier(.2,.9,.3,1);
 }
 
-/* subtle multi-layer background */
 body {
   background: radial-gradient(1200px 600px at 10% 10%, rgba(61,129,255,0.03), transparent 8%),
               radial-gradient(1000px 500px at 90% 80%, rgba(249,40,253,0.03), transparent 8%),
@@ -29,7 +28,6 @@ body {
   -moz-osx-font-smoothing:grayscale;
 }
 
-/* unify transition defaults */
 * { transition: color 220ms var(--ease), background 280ms var(--ease), box-shadow 280ms var(--ease), transform 220ms var(--ease); }
 
 body {
@@ -38,7 +36,6 @@ body {
   overflow-x: hidden;
 }
 
-/* header glass + thin border */
 .mobile-header {
   background: linear-gradient(180deg, rgba(2,2,20,0.88), rgba(6,6,30,0.65));
   border-bottom: 1px solid rgba(255,255,255,0.03);
@@ -141,11 +138,10 @@ body {
 }
 
 .mobile-nav .nav-button:hover {
-  color: var(--bg-900);
   background: linear-gradient(90deg, var(--accent-1), var(--accent-3), var(--accent-2));
   box-shadow: 0 6px 18px rgba(61,129,255,0.08), 0 1px 0 rgba(255,255,255,0.02);
+  background-clip: padding-box;
   -webkit-background-clip: padding-box;
-  -webkit-text-fill-color: initial;
   color: white;
 }
 
@@ -569,7 +565,6 @@ body {
   border-color: transparent;
 }
 
-/* keyboard focus visible */
 :focus { outline: none; }
 :focus-visible {
   outline: 3px solid rgba(249,40,253,0.22);
@@ -577,13 +572,11 @@ body {
   border-radius: 6px;
 }
 
-/* ensure interactive controls have clear focus (buttons, links) */
 button:focus-visible, .nav-button:focus-visible, .footer-nav-button:focus-visible, .social-icon:focus-visible, .featured-card-link:focus-visible {
   box-shadow: 0 6px 18px rgba(61,129,255,0.12);
   transform: translateY(-2px);
 }
 
-/* accessible social icon states */
 .social-icon {
   transition: background 220ms var(--ease), color 220ms var(--ease), transform 180ms var(--ease);
 }
@@ -594,7 +587,6 @@ button:focus-visible, .nav-button:focus-visible, .footer-nav-button:focus-visibl
   border-color: rgba(255,255,255,0.12);
 }
 
-/* respect user reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
